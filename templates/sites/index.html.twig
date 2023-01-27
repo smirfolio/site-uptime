@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sites index{% endblock %}
+
+{% block body %}
+    <h1>Monitoring Sites</h1>
+    <table role="grid">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">SiteAdress</th>
+                <th scope="col">Health</th>
+                <th scope="col">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for site in sites %}
+            <tr>
+                <td class="{{ site.lastStatus == 'healthy' ? 'success' : 'error' }}">
+                    {% if site.lastStatus == 'healthy' %}
+                        <i class="fa-solid fa-face-smile-beam"></i>
+                    {% else %}
+                        <i class="fa-solid fa-face-frown"></i>
+                    {% endif %}
+                </td>
+                <td>{{ site.siteAdress }}</td>
+                <td ><a class="{{ site.lastStatus == 'healthy' ? 'success' : 'error' }}" href="{{ path('app_status_site', {'id': site.id}) }}">{{ site.lastStatus }}</a></td>
+
+                <td>
+                    <a href="{{ path('app_sites_show', {'id': site.id}) }}">show</a>
+                    <a href="{{ path('app_sites_edit', {'id': site.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_sites_new') }}">Add new site to monitor</a>
+{% endblock %}

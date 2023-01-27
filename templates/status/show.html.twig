@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+    {% block head_refreesh %}
+        <meta http-equiv="refresh" content="5; URL=http://127.0.0.1:8000/status/site/{{ site_id }}">
+    {% endblock %}
+    {% block title %}Site Status{% endblock %}
+    {% block body %}
+    <h1>Site Status {{ site }}</h1>
+
+    <table  role="grid">
+        <thead>
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Status code</th>
+            <th scope="col">Latency</th>
+            <th scope="col">Time Stamp</th>
+        </tr>
+        </thead>
+        </thead>
+        <tbody>
+        {% for statusDetail in status %}
+            <tr>
+                <td class="{{ statusDetail.status == 200 ? 'success' : 'error' }}">
+                    {% if  statusDetail.status == 200 %}
+                        <i class="fa-solid fa-face-smile-beam"></i>
+                    {% else %}
+                        <i class="fa-solid fa-face-frown"></i>
+                    {% endif %}
+                </td>
+                <td  class="{{ statusDetail.status == 200 ? 'success' : 'error' }}">{{ statusDetail.status }}</td>
+                <td>{{ statusDetail.latency }}</td>
+                <td>{{ statusDetail.timeStamp|date('d-m-Y H:i:s') }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('app_sites_index') }}">back to Sites</a>
+{% endblock %}
