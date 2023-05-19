@@ -38,7 +38,8 @@ class StatusController extends AbstractController
         return $this->render('status/show.html.twig', [
             'status' => $site->getStatus()->getValues() ?? "",
             'site' => $site->getSiteAdress() ?? "",
-            'site_id' => $id?? ""
+            'site_id' => $id?? "",
+            'base_url' => $_ENV['APP_HOST_PROTOCOL'] . '://'. $_ENV['APP_HOST_NAME'] . ($_ENV['APP_HOST_PORT'] ? ':' . $_ENV['APP_HOST_PORT'] : '') ?? ''
         ]);
     }
 

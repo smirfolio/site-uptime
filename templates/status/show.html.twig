@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
     {% block head_refreesh %}
-        <meta http-equiv="refresh" content="5; URL=http://127.0.0.1:8000/status/site/{{ site_id }}">
+        <meta http-equiv="refresh" content="5; URL={{ base_url }}/status/site/{{ site_id }}">
     {% endblock %}
     {% block title %}Site Status{% endblock %}
     {% block body %}
